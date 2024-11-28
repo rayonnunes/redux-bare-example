@@ -1,50 +1,74 @@
-# React + TypeScript + Vite
+# Redux Todo List Challenge
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Objective
+Create a todo list application using pure Redux that allows users to:
+1. Add new todos
+2. Toggle todo completion status
+3. Delete todos
+4. Filter todos by status (All, Active, Completed)
 
-Currently, two official plugins are available:
+## Project Structure
+You'll need to implement the following files:
+- `actions.js`: Define action creators
+- `reducers.js`: Create reducers for managing state
+- `store.js`: Configure the Redux store
+- `App.js`: React component to render the todo list
+- `index.js`: Main application entry point
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Requirements
 
-## Expanding the ESLint configuration
+### 1. Action Types
+Define these action types in `actions.js`:
+- `ADD_TODO`
+- `TOGGLE_TODO`
+- `DELETE_TODO`
+- `SET_VISIBILITY_FILTER`
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### 2. Action Creators
+Create action creators for each action type:
+```javascript
+// Example structure
+export const addTodo = (text) => ({
+  type: 'ADD_TODO',
+  payload: text
+});
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 3. Reducers
+Implement two reducers:
+- `todos` reducer: Manages the list of todos
+- `visibilityFilter` reducer: Manages the current filter state
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### 4. Store Configuration
+Set up a Redux store using `createStore` from Redux
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### 5. Component Requirements
+Your `App.js` should include:
+- Input field to add new todos
+- List of todos with:
+  - Checkbox to toggle completion
+  - Delete button for each todo
+- Filter buttons (All, Active, Completed)
+
+### 6. Filtering Logic
+Implement a selector function to filter todos based on the current visibility filter
+
+## Bonus Challenges
+- Add local storage persistence
+- Implement todo editing functionality
+- Add animation to todo list items
+
+## Hints
+- Use `combineReducers` to combine multiple reducers
+- Remember to create unique IDs for todos (you can use `Date.now()` or a library like `uuid`)
+- Keep state immutable in your reducers
+
+## Estimated Time
+- Basic Implementation: 30-45 minutes
+- Bonus Challenges: Additional 15-30 minutes
+
+## Evaluation Criteria
+- Correct Redux flow (actions → reducers → store)
+- Immutable state management
+- Clean and readable code
+- Functional filtering mechanism
