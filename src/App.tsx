@@ -1,15 +1,19 @@
 import { Provider } from 'react-redux'
-import ToDoList from './components/ToDoList'
+import { BrowserRouter } from "react-router";
+
 import { store } from './store'
 
 import './App.css'
+import Router from './routes/Routes';
 
 
 function App() {
 
   return (
     <Provider store={store}>
-      <ToDoList />
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
     </Provider>
   )
 }

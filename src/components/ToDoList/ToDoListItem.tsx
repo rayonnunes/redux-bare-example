@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 
-import { deleteToDo, toggleToDo, editToDo } from "../store/todo/actions";
-import { ToDo, ToDoStatus } from "../store/todo/types";
+import { deleteToDo, toggleToDo, editToDo } from "../../store/todo/actions";
+import { ToDo, ToDoStatus } from "../../store/todo/types";
 import { ChangeEvent, useState } from "react";
 
 export type ToDoListItemProps = {

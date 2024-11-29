@@ -1,3 +1,5 @@
+import { Dispatch } from "redux";
+
 import {
   FilterTodoTypes,
   FilterTypes,
@@ -7,8 +9,6 @@ import {
 } from "./types";
 
 export const addToDo = (title: string): TodoActionTypes => {
-  console.log("title", title);
-
   return {
     type: ToDoTypes.ADD_TODO,
     payload: {
@@ -16,6 +16,14 @@ export const addToDo = (title: string): TodoActionTypes => {
       title: title,
       status: ToDoStatus.ACTIVE,
     },
+  };
+};
+
+export const addToDoAsync = (title: string) => {
+  return (dispatch: Dispatch) => {
+    setTimeout(() => {
+      dispatch(addToDo(title));
+    }, 1000);
   };
 };
 

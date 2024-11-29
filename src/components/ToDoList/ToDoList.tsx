@@ -1,29 +1,18 @@
 import type { ChangeEvent, FormEvent } from "react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addToDo, setToDoFilter } from "../store/todo/actions";
-import { RootStore } from "../store";
-import { FilterTypes, ToDo } from "../store/todo/types";
+import { addToDoAsync, setToDoFilter } from "../../store/todo/actions";
+import { FilterTypes, ToDo } from "../../store/todo/types";
 import ToDoListItem from "./ToDoListItem";
+import { toDoListFiltered } from "../../store/todo/selectors";
 
 const ToDoList = () => {
   const [toDoInputValue, setToDoItem] = useState("");
 
-  const toDoList = useSelector((state: RootStore) => state.toDoStore);
-
   const dispatch = useDispatch();
 
-  const toDoTableItems = useMemo(() => {
-    if (!toDoList.toDoFilter) return toDoList.toDo ?? [];
-    return (
-      toDoList.toDo.filter(
-        (toDoItem) => toDoItem?.status === toDoList.toDoFilter
-      ) ?? []
-    );
-  }, [toDoList.toDo, toDoList.toDoFilter]);
-
-  console.log("toDoList", toDoList);
+  const toDoTableItems = useSelector(toDoListFiltered);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setToDoItem(e.target.value);
@@ -39,7 +28,7 @@ const ToDoList = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (toDoInputValue) {
-      dispatch(addToDo(toDoInputValue));
+      dispatch(addToDoAsync(toDoInputValue));
       setToDoItem("");
     }
   };
