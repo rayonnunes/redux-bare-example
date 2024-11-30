@@ -68,6 +68,15 @@ const categoriesReducer = (
     newCategories[categoryIndex].items = newItems;
 
     return newCategories;
+  } else if (action.type === VotingTypes.ADD_CATEGORY) {
+    return [
+      ...state,
+      {
+        id: crypto.randomUUID(),
+        name: action.payload.name,
+        items: [],
+      },
+    ];
   } else {
     return state;
   }

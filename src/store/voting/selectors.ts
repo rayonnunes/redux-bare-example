@@ -1,6 +1,5 @@
 import { RootStore } from "../store";
 
-// selectors/votingSelectors.js
 export const selectCategories = (state: RootStore) =>
   state.votingStore.categories;
 export const selectUsers = (state: RootStore) => state.votingStore.users;
