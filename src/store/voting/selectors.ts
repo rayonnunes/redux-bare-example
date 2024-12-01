@@ -3,26 +3,22 @@ import { RootStore } from "../store";
 export const selectCategories = (state: RootStore) =>
   state.votingStore.categories;
 export const selectUsers = (state: RootStore) => state.votingStore.users;
-export const selectCurrentUser = (state: RootStore) =>
-  state.votingStore.currentUser;
+export const selectCurrentUser = (state: RootStore) => {
+  const { currentUser, users } = state.votingStore;
 
-// Selector placeholders - TO BE IMPLEMENTED
-export const selectCategoryById = (state: RootStore, categoryId: string) => {
-  // TODO: Implement selector to get category by ID
+  if (Object.keys(users).includes(currentUser.id)) {
+    const currentUserID = currentUser.id as keyof typeof users;
+    return users[currentUserID];
+  }
 };
 
-export const selectItemVotes = (
-  state: RootStore,
-  categoryId: string,
-  itemId: string
-) => {
-  // TODO: Implement selector to get item votes
-};
+export const selectcanUserVote = (state: RootStore) => {
+  const { currentUser, users } = state.votingStore;
 
-export const canUserVote = (
-  state: RootStore,
-  categoryId: string,
-  itemId: string
-) => {
-  // TODO: Implement vote eligibility check
+  if (Object.keys(users).includes(currentUser.id)) {
+    const currentUserID = currentUser.id as keyof typeof users;
+    return users[currentUserID].availableVotes > 0;
+  }
+
+  return false;
 };

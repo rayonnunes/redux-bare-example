@@ -10,6 +10,9 @@ const Home = () => {
             <Link to="voting">
                 <button>Go to Voting challenge</button>
             </Link>
+            <Link to="/github-repo">
+                <button>Go to GitHub Repo challenge (using redux-saga)</button>
+            </Link>
         </div>
     );
 };

@@ -46,7 +46,6 @@ export const initialState = {
   },
 };
 
-// TODO: Implement category reducer
 const categoriesReducer = (
   state = initialState.categories,
   action: VotingActionTypes
@@ -77,6 +76,19 @@ const categoriesReducer = (
         items: [],
       },
     ];
+  } else if (action.type === VotingTypes.CAST_VOTE) {
+    const newCategories = [...state];
+
+    const selectedCategoryIndex = newCategories.findIndex(
+      (category) => category.id === action.payload.categoryId
+    );
+
+    const selectedItemIndex = newCategories[
+      selectedCategoryIndex
+    ].items.findIndex((item) => item.id === action.payload.itemId);
+
+    newCategories[selectedCategoryIndex].items[selectedItemIndex].votes++;
+    return newCategories;
   } else {
     return state;
   }
@@ -86,10 +98,18 @@ const usersReducer = (
   state = initialState.users,
   action: VotingActionTypes
 ) => {
-  switch (action.type) {
-    // implement usersReducer
-    default:
-      return state;
+  if (action.type === VotingTypes.CAST_VOTE) {
+    if (Object.keys(state).includes(action.payload.userId)) {
+      const userId = action.payload.userId as keyof typeof state;
+      if (state[userId].availableVotes < 1) {
+        throw new Error("User does not have anymore votes");
+      }
+      state[userId].availableVotes--;
+    }
+
+    return state;
+  } else {
+    return state;
   }
 };
 
@@ -103,6 +123,8 @@ const currentUserReducer = (
       return {
         ...action.payload,
       };
+    case VotingTypes.LOGOUT_USER:
+      return initialState.currentUser;
     default:
       return state;
   }
