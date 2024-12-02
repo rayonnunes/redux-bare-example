@@ -171,7 +171,6 @@ Your Redux store should manage:
 3. Implement reducers with complex logic
 4. Create selectors for data derivation
 5. Build a simple UI to interact with the voting system
-```
 
 This challenge is designed to test your Redux skills by presenting a more complex state management scenario. The most challenging points of this exercise are:
 
@@ -205,3 +204,71 @@ The goal is to test your ability to:
 - Implement intricate reducer logic
 - Create efficient selectors
 - Handle multiple interconnected state updates
+
+# 3 - GitHub Repository Search and Star Management (hard)
+
+Imagine you're building a sophisticated GitHub repository exploration application that requires robust handling of asynchronous operations. Your goal is to create a system that can efficiently search repositories and manage starring actions while gracefully handling the unpredictable nature of network requests.
+
+Challenge Core Objectives:
+The challenge is designed to test your ability to manage complex side effects and race conditions using Redux-Saga. You'll be implementing two key asynchronous workflows:
+
+1. Repository Search Flow
+The search functionality needs to solve several real-world complexity challenges:
+
+- Handle multiple rapid search requests
+- Prevent stale or outdated search results from overwriting newer results
+- Implement a timeout mechanism to handle slow network responses
+- Allow manual cancellation of ongoing searches
+- Provide clear, predictable state updates
+
+
+2. Repository Star Management
+The star feature requires sophisticated async handling:
+
+- Execute repository starring with a reasonable timeout
+- Manage potential network failures
+- Provide immediate and accurate feedback to the user
+- Ensure robust error handling
+
+
+
+Technical Complexity Highlights:
+
+- You'll work with generator functions
+- Leverage advanced Redux-Saga effects like race(), fork(), and cancel()
+- Implement intricate flow control for asynchronous operations
+- Handle multiple concurrent action scenarios
+
+Simulated API Behavior:
+The provided githubApi simulates real-world network conditions:
+
+- Random network delays (0-2 seconds for search, 0-3 seconds for starring)
+- Occasional random failures to test error handling
+- Predictable but not deterministic response patterns
+
+Key Saga Techniques You'll Practice:
+
+- Using race() to manage competing async flows
+- Implementing cancellation logic
+- Creating robust error handling strategies
+- Managing side effects with fine-grained control
+
+Learning Goals:
+
+- Understand how to prevent race conditions in async workflows
+- Learn advanced generator function techniques
+- Develop skills in managing complex state transitions
+- Practice writing resilient, production-like async code
+
+Mental Model Challenge:
+Think of this like choreographing a complex dance where multiple dancers (async operations) need to move precisely, potentially changing direction or stopping mid-performance based on external signals.
+Recommended Approach:
+
+1. Understand the existing code structure
+2. Implement the TODO sections incrementally
+3. Test edge cases like:
+
+- Multiple quick successive searches
+- Starring a repository during an ongoing search
+- Handling network timeouts
+- Managing unexpected errors
